@@ -15,7 +15,7 @@ def clear_files():
     product_category_data_file = open("./product_category_data.csv", "w")
     
     product_data_file.write("")
-    category_data_file.write("")
+    category_data_file.write("0;' OFERTAS'")
     product_category_data_file.write("")
     
 
