@@ -40,6 +40,7 @@ a{
     width: 90%;
     display: grid;
     grid-template-rows: 20% 1fr;
+    grid-template-columns: 1fr;
     gap: 10px;
     padding: 10px 50px;
     background-color: #2c364244;
@@ -126,6 +127,8 @@ a{
     align-items: center;
 }
 .producto-compra{
+    min-width: 100vw;
+    min-height: 80vh;
     display: grid;
     place-content: center;
     justify-content: space-evenly;
@@ -146,13 +149,20 @@ a{
         max-width: 400px;
         max-height: 400px;
         border-radius: 10px;
+        margin-left: 200px;
     }
 
 }
-.producto-compra h2{
+.marca{
     grid-area: marca;
-    font-size: 20px;
+    font-size: 40px;
+    font-weight: 700;
     color: #0084ff;
+}
+.descripcion-producto{
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: underline;
 }
 .producto-compra h1{
     grid-area: titulo;

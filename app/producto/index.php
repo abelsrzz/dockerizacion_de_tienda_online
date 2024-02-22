@@ -17,7 +17,6 @@ include '../components/header.php';
 </head>
 
 <body>
-
     <main class="pagina-categoria dotted">
         <?php
         if (isset($_GET["id"])) {
@@ -35,7 +34,7 @@ include '../components/header.php';
             $precioProducto = quitar_centimos($precioProducto);
 
             if(!isset($_SESSION['usuario'])){
-                $boton = "<a class='boton' href='/login?prodID=$idProducto'>Inicia sesión para añadir a la cesta.</a>";
+                $boton = "<a class='boton' href='/login/?prodID=$idProducto'>Inicia sesión para añadir a la cesta.</a>";
             }
             else{
                 $boton= "<a class='boton' href='/carrito/addToBasket.php?id=$idProducto'>Añadir a la cesta</a>";
@@ -46,28 +45,31 @@ include '../components/header.php';
                 <h1 class='nombre'>$nombreProducto</h1>
                 <h2 class='marca'>Marca: $marcaProducto</h2>
                 <div class='img-container-compra'>
-                    <img src='$imagenProducto'>
-
-                    
+                    <img src='$imagenProducto' alt='Foto del producto $nombreProducto'>
                 </div>
-                <div class='actions-container'>
-                    <p class='especificaciones'>$especificacionesProducto</p>
-                    <h3 class='precio'>$precioProducto</h3>
+                <div class='actions-container'>";
+                if($especificacionesProducto == ""){
+                    echo "<p class='especificaciones'>Actualmente no hay una descripción disponible sobre el producto $nombreProducto</p>";
+                }else{
+                    echo "
+                        <h2 class='descripcion-producto'>Descripción del producto: </h2>
+                        <p class='especificaciones'>$especificacionesProducto</p>
+                    ";
+                }
+                    echo "<h3 class='precio'>$precioProducto</h3>
                     $boton
                 </div>
             </article>
             ";
         }
         ?>
-    </main>
-
     <div class="blob-container">
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
+    <span class="blob" />
     </div>
+    </main>
+    <?php
+        include '../components/footer.php';
+    ?>
 </body>
 
 </html>

@@ -18,7 +18,7 @@ include '../components/header.php';
 </head>
 
 <body>
-    <main class='carrito pagina-categoria boxed'>
+    <main class='carrito pagina-categoria dotted'>
         <h1 class='titulo-seccion'>Carrito</h1>
         <section class='productos'>
             <?php
@@ -70,7 +70,13 @@ include '../components/header.php';
 
             }
             ?>
+    <div class="blob-container">
+        <span class="blob" />
+    </div>
     </main>
+    <?php
+        include '../components/footer.php';
+    ?>
 </body>
 
 </html>

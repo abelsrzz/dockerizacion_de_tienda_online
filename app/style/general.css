@@ -6,6 +6,10 @@
 body {
   background-color: #202020;
   min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 .blob {
   filter: blur(40px);
@@ -50,7 +54,7 @@ body {
   border-radius: 10px;
   background-color: #fff;
 }
-/*.boxed {
+.boxed {
   background-size: 100px 100px;
   background-image: linear-gradient(to right, #ffffff46 1px, transparent 1px),
     linear-gradient(to bottom, #ffffff46 1px, transparent 1px);
@@ -62,7 +66,7 @@ body {
     #ffffff46 1px,
     rgba(0, 0, 0, 0) 1px
   );
-} */
+}
 .cabecera {
   display: flex;
   justify-content: space-between;
@@ -76,6 +80,9 @@ body {
   top: 0;
   z-index: 10;
   border-bottom: 1px solid #fff;
+}
+.imagen-producto{
+  font-size: 12px;
 }
 .enlaces-cabecera {
   display: flex;
@@ -175,5 +182,16 @@ body {
 .especificaciones{
   max-width: 50%;
   text-align: left;
+  line-height: 23px;
   text-wrap: pretty;
+}
+.footer{
+  position: static;
+  text-align: center;
+  bottom: 0;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

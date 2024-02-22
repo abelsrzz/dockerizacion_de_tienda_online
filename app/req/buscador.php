@@ -5,7 +5,7 @@ require '../req/conection.php';
 $buscar = $_POST['query'] ?? '';
 $buscar = strtolower($buscar);
 
-$sql = "SELECT * FROM producto WHERE LOWER(nombre) LIKE '%$buscar%' OR LOWER(especificaciones) LIKE '%$buscar%' OR LOWER(marca) LIKE '%$buscar%'";
+$sql = "SELECT * FROM producto WHERE LOWER(nombre) LIKE '%$buscar%' OR LOWER(especificaciones) LIKE '%$buscar%' OR LOWER(marca) LIKE LOWER('%$buscar%')";
 $busqueda = mysqli_query($c, $sql);
 
 if (mysqli_num_rows($busqueda) > 0) {
@@ -17,13 +17,13 @@ if (mysqli_num_rows($busqueda) > 0) {
     while ($fila = mysqli_fetch_row($busqueda)) {
         list($idProducto, $nombreProducto, $imagenProducto, $precioProducto, $especificacionesProducto, $marcaProducto) = $fila;
         echo "
-            <a href='/producto/producto.php/?id=$idProducto' class='card'>
+            <a href='/producto/?id=$idProducto' class='card'>
             <div class='img-container'>
-                <img src='$imagenProducto'>
+                <img src='$imagenProducto' alt='Foto del producto $nombreProducto' class='imagen-producto'>
             </div>
-            <h1 class='nombre-producto'>$nombreProducto " . $precioProducto . "€</h1>
+            <h1 class='nombre-producto' style='font-size: 12px;'>$nombreProducto <span class='precio'>" . $precioProducto . "</span></h1>
             </a>
-            ";
+        ";
     }
     echo "
     </section>

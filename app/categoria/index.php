@@ -18,7 +18,7 @@
 
 <body>
 
-    <main class="pagina-categoria boxed">
+    <main class="pagina-categoria dotted">
         <?php
         if (isset($_GET["id"])) {
             $idCategoria = $_GET["id"];
@@ -62,11 +62,10 @@
 
     <div class="blob-container">
         <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
     </div>
+    <?php
+        include '../components/footer.php';
+    ?>
 </body>
 
 </html>
