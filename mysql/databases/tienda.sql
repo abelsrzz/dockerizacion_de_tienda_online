@@ -45,6 +45,7 @@ INTO TABLE producto
 FIELDS TERMINATED BY ';' 
 ENCLOSED BY "'" 
 LINES TERMINATED BY '\n' 
+IGNORE 1 LINES
 (id, nombre, imagen, precio, especificaciones, marca);
 
 LOAD DATA INFILE '/data/category_data.csv' 
