@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    restart: unless-stopped
+    volumes:
+      - ./app/:/var/www/
+    depends_on:
+      - php-fpm
+      - database
+    ports:
+      - 8080:80
+    networks:
+      - php-stack
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+    container_name: php-fpm
+    restart: unless-stopped
+    volumes:
+      - ./app/:/var/www/
+    depends_on:
+      - database
+    networks:
+      - php-stack
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      - PMA_ARBITRARY=1
+      - TZ=Spain/Madrid
+    ports:
+      - 8081:80
+    depends_on:
+      - database
+    networks:
+      - php-stack
+
+  database:
+    build:
+      context: ./mysql
+    container_name: database
+    restart: unless-stopped
+    command:
+      - '--local-infile=1'
+      - '--secure-file-priv=/data'
+    environment:
+      - MYSQL_DATABASE=tienda
+      - MYSQL_USER=myadmin
+      - MYSQL_PASSWORD=abc123.
+      - MYSQL_ROOT_PASSWORD=abc123.
+    networks:
+      - php-stack
+
+networks:
+  php-stack:
+    name: php-stack 
+
