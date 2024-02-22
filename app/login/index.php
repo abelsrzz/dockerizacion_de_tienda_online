@@ -16,7 +16,7 @@
     <title>Tienda Online</title>
 </head>
 
-<body>
+<body class='dotted'>
     <?php
     require '../req/conection.php';
     include '../components/header.php';
@@ -91,6 +91,9 @@
             ?>
 
         </form>
+        <div class="blob-container">
+        <span class="blob" />
+    </div>
     </main>
 </body>
 

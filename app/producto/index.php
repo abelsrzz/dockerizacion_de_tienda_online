@@ -63,10 +63,6 @@ include '../components/header.php';
 
     <div class="blob-container">
         <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
-        <span class="blob" />
     </div>
 </body>
 

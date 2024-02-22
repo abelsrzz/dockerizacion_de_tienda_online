@@ -18,7 +18,7 @@
 
 <body>
 
-    <main class="pagina-categoria boxed">
+    <main class="pagina-categoria dotted">
         <?php
         if (isset($_GET["id"])) {
             $idCategoria = $_GET["id"];

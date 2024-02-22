@@ -18,7 +18,7 @@ include '../components/header.php';
 </head>
 
 <body>
-    <main class='carrito pagina-categoria boxed'>
+    <main class='carrito pagina-categoria dotted'>
         <h1 class='titulo-seccion'>Carrito</h1>
         <section class='productos'>
             <?php

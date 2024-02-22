@@ -20,7 +20,7 @@
 <body>
 
 
-    <main class="principal">
+    <main class="principal dotted">
         <div class="bienvenida">
             <?php
             if (!isset($_SESSION["usuario"])) {
@@ -50,7 +50,7 @@
                 $icon = '';
             }
             echo "
-                <section class='seccion dotted'>
+                <section class='seccion '>
                 <h1 class='titulo-seccion'>" . $icon . "$nombreCategoria <a class='boton' href='/categoria/?id=$idCategoria'>Ver más...</a></h1>
                 <section class='productos'>
                 ";
@@ -78,7 +78,9 @@
                 ";
         }
         ?>
-
+    <div class="blob-container">
+        <span class="blob" />
+    </div>
     </main>
     <script type="text/javascript">
         function buscar_ahora() {

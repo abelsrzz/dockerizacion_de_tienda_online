@@ -16,7 +16,7 @@
     <title>Tienda Online</title>
 </head>
 
-<body>
+<body class='dotted'>
     <?php
     require '../req/conection.php';
     include '../components/header.php';
@@ -123,7 +123,11 @@
 
             <p>¿Ya tienes cuenta? <a href='/login'>Inicia sesión.</a></p>
         </form>
+        
     </main>
+    <div class="blob-container">
+        <span class="blob" />
+    </div>
 </body>
 
 </html>
