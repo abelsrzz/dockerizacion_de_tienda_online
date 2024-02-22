@@ -45,15 +45,13 @@ INTO TABLE producto
 FIELDS TERMINATED BY ';' 
 ENCLOSED BY "'" 
 LINES TERMINATED BY '\n' 
-IGNORE 1 LINES 
 (id, nombre, imagen, precio, especificaciones, marca);
 
 LOAD DATA INFILE '/data/category_data.csv' 
 INTO TABLE categoria 
 FIELDS TERMINATED BY ';' 
 ENCLOSED BY "'" 
-LINES TERMINATED BY '\n' 
-IGNORE 1 LINES 
+LINES TERMINATED BY '\n'  
 (id, nombre);
 
 LOAD DATA INFILE '/data/product_category_data.csv' 
@@ -61,7 +59,6 @@ INTO TABLE categoria_producto
 FIELDS TERMINATED BY ';' 
 ENCLOSED BY "'" 
 LINES TERMINATED BY '\n' 
-IGNORE 1 LINES 
 (id_categoria, id_producto);
 
 ALTER TABLE categoria_producto ADD CONSTRAINT FOREIGN KEY (id_producto) REFERENCES producto(id) ON DELETE CASCADE ON UPDATE CASCADE;
