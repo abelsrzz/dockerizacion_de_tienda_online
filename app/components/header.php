@@ -1,3 +1,4 @@
+<!-- Header de la página -->
 <header class="cabecera">
         <div id="zona-menu">
             <button id="boton-menu">

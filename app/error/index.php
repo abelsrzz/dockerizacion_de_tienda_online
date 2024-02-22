@@ -1,4 +1,5 @@
 <?php
+    //Llamada de la sesión y la base de datos
     require '../req/session.php';
     require '../req/conection.php';
 ?>
