@@ -1,4 +1,3 @@
-<!-- Header de la página -->
 <header class="cabecera">
         <div id="zona-menu">
             <button id="boton-menu">
@@ -13,10 +12,10 @@
             </button>
             <ul id="menu">
                 <li class="elemento-menu">
-                    <a target="_blank" href="https://github.com/abelsrzz/dockerizacion_de_tienda_online">Ver código</a>
+                    <a href="#">Ver código</a>
                 </li>
                 <li class="elemento-menu">
-                    <a target="_blank" href="https://github.com/abelsrzz">A cerca del creador</a>
+                    <a href="#">A cerca del creador</a>
                 </li>
 
             </ul>
