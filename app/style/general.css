@@ -59,7 +59,7 @@ body {
   background-image: linear-gradient(to right, #ffffff46 1px, transparent 1px),
     linear-gradient(to bottom, #ffffff46 1px, transparent 1px);
 }
- .dotted {
+.dotted {
   background-size: 50px 50px;
   background-image: radial-gradient(
     circle,
@@ -81,7 +81,7 @@ body {
   z-index: 10;
   border-bottom: 1px solid #fff;
 }
-.imagen-producto{
+.imagen-producto {
   font-size: 12px;
 }
 .enlaces-cabecera {
@@ -92,7 +92,7 @@ body {
   gap: 20px;
   list-style: none;
 }
-.enlaces-cabecera li a svg{
+.enlaces-cabecera li a svg {
   width: 30px;
 }
 .cabecera button {
@@ -104,11 +104,9 @@ body {
 .cabecera #carrito:hover {
   scale: 125%;
   rotate: -15deg;
-  
 }
 .cabecera #boton-menu:hover {
   rotate: 90deg;
-
 }
 
 #zona-menu {
@@ -119,13 +117,13 @@ body {
   height: 50px;
   width: 50px;
 }
-#zona-menu:hover{
-    #boton-menu{
-        rotate: 90deg;
-    }
-    #menu{
-        display: flex;
-    }
+#zona-menu:hover {
+  #boton-menu {
+    rotate: 90deg;
+  }
+  #menu {
+    display: flex;
+  }
 }
 
 #menu {
@@ -140,8 +138,8 @@ body {
   padding: 30px;
   list-style-type: none;
 }
-#menu:hover{
-    display: flex;
+#menu:hover {
+  display: flex;
 }
 #menu li {
   border-bottom: 1px solid #797979;
@@ -151,41 +149,38 @@ body {
   text-decoration: none;
   font-weight: 700;
 }
-.boton{
+.boton {
   font-weight: 500;
   font-size: 1.2em;
   color: white;
   text-transform: uppercase;
   padding: 10px 40px;
-  border:1px solid #0084ff;
+  border: 1px solid #0084ff;
   background-color: #0a233a;
   text-decoration: none;
 
-  transition: scale .15s ease-in-out,
-  color .15s ease-in-out;
-  ;
-
-  &:hover{
-      scale: 110%;
+  transition: scale 0.15s ease-in-out, color 0.15s ease-in-out;
+  &:hover {
+    scale: 110%;
   }
 }
-.error{
+.error {
   color: red;
 }
-.precio{
+.precio {
   color: rgb(36, 228, 46);
 
-  &::after{
+  &::after {
     content: " €";
   }
 }
-.especificaciones{
+.especificaciones {
   max-width: 50%;
   text-align: left;
   line-height: 23px;
   text-wrap: pretty;
 }
-.footer{
+.footer {
   position: static;
   text-align: center;
   bottom: 0;
