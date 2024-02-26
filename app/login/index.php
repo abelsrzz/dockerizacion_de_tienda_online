@@ -28,6 +28,12 @@ session_start();
         $usuario_login = $_POST['username'];
         $user_password = $_POST['password'];
 
+        //Se comprueba el formato de la contraseña para evitar injecciones de código
+        if(!preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[A-Z]).*$/", $user_password)) {
+            header("Location: /login/index.php?err=2");
+            exit(1);
+        } 
+
         //Se selecionan los datos de usuario en la base de datos
         $sql = "SELECT id, username FROM usuario";
         $resultado = mysqli_query($c, $sql);
@@ -62,14 +68,14 @@ session_start();
                     exit(0);
                 } else {
                     //Si las contraseñas no coinciden se envía un código de error
-                    header("Location: /login/?err=2");
+                    header("Location: /login/index.php?err=2");
                     exit(1);
                 }
             }
 
         }
         //Si el usuario no existe se envía un código de error
-        header("Location: /login/?err=1");
+        header("Location: /login/index.php?err=1");
         exit(1);
 
     }

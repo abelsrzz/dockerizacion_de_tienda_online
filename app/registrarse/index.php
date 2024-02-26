@@ -38,12 +38,24 @@ session_start();
         $sql = "SELECT mail FROM usuario WHERE mail LIKE '$mail'";
         $mailRepetido = mysqli_query($c, $sql);
 
+        //Se comprueba el formato del correo
+        if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mail)) {
+            header("Location: /registrarse/index.php?err=4");
+            exit(1);
+        } 
+
+        //Se comprueba el formato de la contraseña
+        if(!preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[A-Z]).*$/", $password_form)) {
+            header("Location: /registrarse/index.php?err=5");
+            exit(1);
+        } 
+
         while ($fila = mysqli_fetch_row($mailRepetido)) {
             list($checkMail) = $fila;
 
             //Si el mail ya existe se envía un código de error
             if ($checkMail == $mail) {
-                header("Location: /registrarse?err=1");
+                header("Location: /registrarse/index.php?err=1");
                 exit(1);
             }
         }
@@ -57,7 +69,7 @@ session_start();
 
             //Si el usuario ya existe se envía un código de error
             if ($checkUsername == $username) {
-                header("Location: /registrarse?err=2");
+                header("Location: /registrarse/index.php?err=2");
                 exit(1);
             }
         }
@@ -89,7 +101,7 @@ session_start();
             exit(0);
         } else {
             //Si las contraseñas no coinciden se envía un código de error
-            header("Location: /registrarse?err=3");
+            header("Location: /registrarse/index.php?err=3");
             exit(1);
         }
     }
@@ -105,6 +117,10 @@ session_start();
                     echo "<p class='error'>Ya existe una cuenta con este nombre de usuario.</p>";
                 } elseif ($_GET['err'] == 3) {
                     echo "<p class='error'>La contraseña no coincide.</p>";
+                } elseif ($_GET['err'] == 4) {
+                    echo "<p class='error'>El formato del correo electrónico no es correcto.</p>";
+                } elseif ($_GET['err'] == 5) {
+                    echo "<p class='error'>La contraseña debe tener mínimo 8 dígitos, una mayúscula y un número.</p>";
                 }
             }
             ?>
