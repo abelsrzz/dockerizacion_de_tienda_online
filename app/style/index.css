@@ -214,3 +214,31 @@ a {
   flex-direction: column;
   gap: 20px;
 }
+.index-menu{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+#all-cats{
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  width: 80%;
+  gap: 30px;
+
+}
+#all-cats.shown{
+  display: flex;
+}
+.categoria-todas{
+  background-color: #202020;
+  border-radius: 5px;
+  border: 1px solid #6d6d6d;
+  padding: 15px 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}

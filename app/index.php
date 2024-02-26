@@ -39,6 +39,29 @@ include './components/header.php';
             <div id="resultados">
             </div>
         </div>
+        <section class="index-menu">
+            <h1 class="nav-menu">
+                <button class="boton" onclick="show_all()">Todas las categorías</button>
+            </h1>
+            <article id="all-cats">
+                <?php
+                    //Selección de todas las categorías existentes
+                    $sql = "SELECT * FROM categoria";
+                    $categorias = mysqli_query($c, $sql);
+
+                    //Se recorren los resultados
+                    while ($fila = mysqli_fetch_row($categorias)) {
+                        list($idCategoria, $nombreCategoria) = $fila;
+                        $nombreCategoria = strtoupper($nombreCategoria);
+
+                        echo "
+                            <a class='categoria-todas' href='./categoria/?id=$idCategoria'>$nombreCategoria</a>
+                        ";
+
+                    }
+                ?>
+            </article>
+        </section>
         <?php
         //Selección de todas las categorías existentes
         $sql = "SELECT * FROM categoria";
@@ -116,6 +139,11 @@ include './components/header.php';
             } else {
                 result.style.display = "flex"
             }
+        }
+
+        function show_all() {
+            const all_cats = document.getElementById("all-cats");
+            all_cats.classList.toggle("shown");
         }
 
     </script>
