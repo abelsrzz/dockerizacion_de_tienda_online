@@ -40,6 +40,7 @@ include '../components/header.php';
             //Se imprime el nombre de la categoría
             echo "
                 <h1 class='titulo-seccion'>$nombreCategoria</h1>
+                <section class='productos-wrapper'>
                 <section class='productos'>
                 ";
 
@@ -67,6 +68,7 @@ include '../components/header.php';
             }
         }
         echo "
+            </section>
             </section>
             ";
         ?>

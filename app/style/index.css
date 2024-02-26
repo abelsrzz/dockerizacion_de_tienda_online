@@ -56,8 +56,13 @@ a {
 .titulo-seccion a {
   font-size: 0.3em;
 }
+.productos-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .productos {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
