@@ -32,7 +32,7 @@ include './components/header.php';
                 echo "<h1>¡Bienvenid@ a la mejor tienda <span class='azul'>" . $_SESSION["usuario"] . "</span>!</h1>";
             }
             ?>
-            <h1>¡CON LAS MEJORES <a href="/categoria/?id=1">Ofertas</a>!</h1>
+            <h1>¡CON LAS MEJORES <a href="/categoria/?id=0">Ofertas</a>!</h1>
 
             <input type="text" name="buscar" id="buscar" value="" placeholder="Buscar..." maxlength="30"
                 autocomplete="off" onkeyup="buscar_ahora();" />

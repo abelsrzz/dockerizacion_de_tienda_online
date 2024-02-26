@@ -40,6 +40,7 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `nombre`) VALUES
+(0, 'OFERTAS'),
 (1, ' pc sobremesa'),
 (2, ' pc gaming'),
 (3, ' pc neo office'),
@@ -206,6 +207,15 @@ CREATE TABLE `categoria_producto` (
 --
 
 INSERT INTO `categoria_producto` (`id_categoria`, `id_producto`) VALUES
+(0,3001),
+(0,2000),
+(0,1999),
+(0,100),
+(0,1566),
+(0,2090),
+(0,1023),
+(0,79),
+(0,56),
 (1, 0),
 (1, 1),
 (1, 2),
