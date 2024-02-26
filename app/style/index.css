@@ -247,3 +247,6 @@ a {
   text-decoration: none;
   font-weight: 700;
 }
+.small-text{
+  font-size: 1rem;
+}

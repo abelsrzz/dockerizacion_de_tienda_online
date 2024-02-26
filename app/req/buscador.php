@@ -14,7 +14,7 @@ if (mysqli_num_rows($busqueda) > 0) {
 
     //Se devuelven los resultados
     echo "
-    <section class='resultados'>
+    <section class='productos-wrapper small-text'>
     <section class='productos'>
     ";
     while ($fila = mysqli_fetch_row($busqueda)) {
