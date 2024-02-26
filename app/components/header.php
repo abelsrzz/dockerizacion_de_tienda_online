@@ -17,7 +17,8 @@
             <li class="elemento-menu">
                 <a href="https://github.com/abelsrzz">A cerca del creador</a>
             </li>
-
+            <li class="elemento-menu">
+            <a href="https://github.com/abelsrzz/dockerizacion_de_tienda_online/issues">Informar de un error</a>
         </ul>
     </div>
     <ul class="enlaces-cabecera" id='logo-central'>

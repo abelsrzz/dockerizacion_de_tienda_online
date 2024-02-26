@@ -51,7 +51,7 @@ INSERT INTO `categoria` (`id`, `nombre`) VALUES
 (9, ' pc neo msi dragonclaw'),
 (10, ' pc all in one'),
 (11, ' mini pcs'),
-(12, ' configurador'),
+-- (12, ' configurador'),
 (13, ' pc gaming menos de 1000'),
 (14, ' pc gaming entre 1000 1500'),
 (15, ' pc gaming mas de 1500'),

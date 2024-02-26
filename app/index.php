@@ -41,7 +41,7 @@ include './components/header.php';
         </div>
         <section class="index-menu">
             <h1 class="nav-menu">
-                <button class="boton" onclick="show_all()">Todas las categorías</button>
+                <button class="boton" onclick="show_all()">Mostrar todas las categorías</button>
             </h1>
             <article id="all-cats">
                 <?php
@@ -67,6 +67,7 @@ include './components/header.php';
         $sql = "SELECT * FROM categoria";
         $categorias = mysqli_query($c, $sql);
 
+
         //Se recorren los resultados
         while ($fila = mysqli_fetch_row($categorias)) {
             list($idCategoria, $nombreCategoria) = $fila;
@@ -79,10 +80,16 @@ include './components/header.php';
                 $icon = '';
             }
 
+            //Se cuenta el tottal de productos de la categoría
+            $sql = "SELECT COUNT(*)  FROM producto p JOIN categoria_producto c ON p.id=c.id_producto  WHERE c.id_categoria LIKE $idCategoria LIMIT 5;";
+            $numero_de_productos_row = mysqli_query($c, $sql);
+            $numero_de_productos = mysqli_fetch_row($numero_de_productos_row);
+            list($numero_de_productos) = $numero_de_productos;
+
             //Se imprime la categoría actual
             echo "
                 <section class='seccion '>
-                <h1 class='titulo-seccion'>" . $icon . "$nombreCategoria <a class='boton' href='/categoria/?id=$idCategoria'>Ver más...</a></h1>
+                <h1 class='titulo-seccion'>" . $icon . "$nombreCategoria <a class='boton' href='/categoria/?id=$idCategoria'>Ver $numero_de_productos productos más</a></h1>
                 <article class='productos'>
             ";
 
