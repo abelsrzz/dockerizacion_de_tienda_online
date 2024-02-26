@@ -18,7 +18,6 @@ include '../components/header.php';
 </head>
 
 <body>
-
     <main class="pagina-categoria dotted">
         <?php
         //Se recopila el id de la categoría a imprimir
