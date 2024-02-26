@@ -1,14 +1,13 @@
 <?php
-//DB credentials
-$DBSEERVER="database";
-$DBUSER="myadmin";
-$DBPASSWORD="abc123.";
-$DBNAME="tienda";
+//Credenciales de base de datos
+$DBSEERVER = "database";
+$DBUSER = "myadmin";
+$DBPASSWORD = "abc123.";
+$DBNAME = "tienda";
 
 
-//Check if DB is down
+//Se comprueba si la base de datos está activa
 try {
-    //DB conection
     $c = mysqli_connect($DBSEERVER, $DBUSER, $DBPASSWORD, $DBNAME);
 } catch (\Throwable $th) {
     header("Location: /error/index.php");

@@ -1,6 +1,7 @@
 <?php
-    require '../req/session.php';
-    require '../req/conection.php';
+//Llamada a la sesión y la base de datos
+require '../req/session.php';
+require '../req/conection.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

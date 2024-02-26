@@ -1,6 +1,7 @@
 <?php
-    ob_start();
-    session_start();
+//Se inicia la sesión
+ob_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,32 +19,41 @@
 
 <body class='dotted'>
     <?php
+    //Se llama a la oconexión de la base de datos
     require '../req/conection.php';
     include '../components/header.php';
 
     if ($_POST) {
+        //En caso de post se registran las credenciales introducidas en el formulario
         $usuario_login = $_POST['username'];
         $user_password = $_POST['password'];
 
-
+        //Se selecionan los datos de usuario en la base de datos
         $sql = "SELECT id, username FROM usuario";
         $resultado = mysqli_query($c, $sql);
 
+        //Se inicializa la variable de contraseña hasheada
         $hash_password = NULL;
+
+        //Se recorren los resultados obtenidos
         while ($fila = mysqli_fetch_row($resultado)) {
             list($id_usuario, $nombre_usuario) = $fila;
 
+            //Si el usuario existe se entra en el if
             if ($usuario_login == $nombre_usuario) {
 
+                //Se selecciona la contraseña del usuario que ha coincidido
                 $sql = "SELECT password FROM usuario WHERE id LIKE $id_usuario";
                 $password_bd = mysqli_query($c, $sql);
                 $hash_password = mysqli_fetch_row($password_bd);
                 list($hash_password) = $hash_password;
 
+                //Se comprueba si las contraseñas coinciden
                 if (password_verify($user_password, $hash_password)) {
                     $_SESSION['usuario'] = $_POST["username"] ?? "";
                     $_SESSION['id_usuario'] = $id_usuario;
 
+                    //Si el usuario estaba en un producto cuando inicio sesión se redirige al producto
                     if (isset($_GET['prodID'])) {
                         header("Location: /producto/?id=" . $_GET['prodID']);
                     } else {
@@ -51,12 +61,14 @@
                     }
                     exit(0);
                 } else {
+                    //Si las contraseñas no coinciden se envía un código de error
                     header("Location: /login/?err=2");
                     exit(1);
                 }
             }
 
         }
+        //Si el usuario no existe se envía un código de error
         header("Location: /login/?err=1");
         exit(1);
 
@@ -65,6 +77,7 @@
     <main class='login'>
         <form action="" method="POST" autocomplete="off">
             <?php
+            //Mensajes informativos de error
             if (isset($_GET['err'])) {
                 if ($_GET['err'] == 1) {
                     echo "<p class='error'>El usuario no existe</p>";
@@ -92,8 +105,8 @@
 
         </form>
         <div class="blob-container">
-        <span class="blob" />
-    </div>
+            <span class="blob" />
+        </div>
     </main>
 </body>
 

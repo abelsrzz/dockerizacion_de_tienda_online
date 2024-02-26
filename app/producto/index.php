@@ -1,4 +1,5 @@
 <?php
+//Llamada a las funciones esenciales
 require '../req/session.php';
 require '../req/conection.php';
 include '../components/header.php';
@@ -20,27 +21,34 @@ include '../components/header.php';
 
     <main class="pagina-categoria dotted">
         <?php
+
+        //Se comprueba que esté establecido el id del producto y si no lo está se redirige a la raíz
         if (isset($_GET["id"])) {
             $idProducto = $_GET["id"];
         } else {
-            header("Location: /error/index.php");
+            header("Location: /");
         }
+
+        //Se seleccionan los datos del producto actual en la base de datos
         $sql = "SELECT * FROM producto WHERE id LIKE $idProducto";
         $producto = mysqli_query($c, $sql);
 
+        //Se recorren los datos obtenidos
         while ($fila = mysqli_fetch_row($producto)) {
             list($idProducto, $nombreProducto, $imagenProducto, $precioProducto, $especificacionesProducto, $marcaProducto) = $fila;
-            
+
             include_once '../functions/centimos.php';
             $precioProducto = quitar_centimos($precioProducto);
 
-            if(!isset($_SESSION['usuario'])){
+            //Se comprueba si el usuario ha iniciado sesión para poder añadir productos al carrito
+            if (!isset($_SESSION['usuario'])) {
+                //Si el usuario decide iniciar sesión se registra el producto en el que estaba para que no lo pierda cuando ya tenga la sesión iniciada
                 $boton = "<a class='boton' href='/login?prodID=$idProducto'>Inicia sesión para añadir a la cesta.</a>";
-            }
-            else{
-                $boton= "<a class='boton' href='/carrito/addToBasket.php?id=$idProducto'>Añadir a la cesta</a>";
+            } else {
+                $boton = "<a class='boton' href='/carrito/addToBasket.php?id=$idProducto'>Añadir a la cesta</a>";
             }
 
+            //Se imprime el producto
             echo "
             <article class='producto-compra'>
                 <h1 class='nombre'>$nombreProducto</h1>

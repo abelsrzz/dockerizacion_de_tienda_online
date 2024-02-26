@@ -1,15 +1,18 @@
 <?php
+//Se llama al a base de datos
 require '../req/conection.php';
 
-
+//Se recibe la búsqueda por post
 $buscar = $_POST['query'] ?? '';
 $buscar = strtolower($buscar);
 
+//Se seleccionan las coincidencias en la base de datos
 $sql = "SELECT * FROM producto WHERE LOWER(nombre) LIKE '%$buscar%' OR LOWER(especificaciones) LIKE '%$buscar%' OR LOWER(marca) LIKE '%$buscar%'";
 $busqueda = mysqli_query($c, $sql);
 
 if (mysqli_num_rows($busqueda) > 0) {
 
+    //Se devuelven los resultados
     echo "
     <section class='resultados'>
     <section class='productos'>
@@ -30,10 +33,8 @@ if (mysqli_num_rows($busqueda) > 0) {
     </section>
     ";
 
-
-
-
 } else {
+    //Si no hay resultados se da un mensaje informativo
     echo "<p class='contenido-resultado'>No hay coincidencias</p>";
 }
 

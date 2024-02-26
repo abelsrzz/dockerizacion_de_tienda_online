@@ -1,8 +1,10 @@
 <?php
+//Llamada de sesión para evitar errores
 ob_start();
 session_start();
 
-$_SESSION=[];
+//Cerrar sesión
+$_SESSION = [];
 session_unset();
 session_destroy();
 setcookie(session_name(), "", 0, "/");

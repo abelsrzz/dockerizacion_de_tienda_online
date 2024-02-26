@@ -1,4 +1,5 @@
 <?php
+//Función para mostrar correctamente los céntimos en el frontend
 function quitar_centimos($cifra)
 {
     $centimosCifra = substr(strrchr($cifra, "."), 1);
