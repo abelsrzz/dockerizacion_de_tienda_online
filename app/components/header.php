@@ -12,10 +12,10 @@
             </button>
             <ul id="menu">
                 <li class="elemento-menu">
-                    <a href="#">Ver código</a>
+                    <a href="https://github.com/abelsrzz/dockerizacion_de_tienda_online">Ver código</a>
                 </li>
                 <li class="elemento-menu">
-                    <a href="#">A cerca del creador</a>
+                    <a href="https://github.com/abelsrzz">A cerca del creador</a>
                 </li>
 
             </ul>

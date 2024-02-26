@@ -17,13 +17,13 @@ if (mysqli_num_rows($busqueda) > 0) {
     while ($fila = mysqli_fetch_row($busqueda)) {
         list($idProducto, $nombreProducto, $imagenProducto, $precioProducto, $especificacionesProducto, $marcaProducto) = $fila;
         echo "
-            <a href='/producto/producto.php/?id=$idProducto' class='card'>
-            <div class='img-container'>
-                <img src='$imagenProducto'>
-            </div>
-            <h1 class='nombre-producto'>$nombreProducto " . $precioProducto . "€</h1>
-            </a>
-            ";
+        <a href='/producto/?id=$idProducto' class='card producto-buscado'>
+        <div class='img-container'>
+            <img src='$imagenProducto'>
+        </div>
+        <h1 class='nombre-producto nombre-producto-buscado'>$nombreProducto <span class='precio'>" . $precioProducto . "</span></h1>
+        </a>
+        ";
     }
     echo "
     </section>

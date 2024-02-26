@@ -49,7 +49,7 @@
                     <div class='img-container'>
                         <img src='$imagenProducto'>
                     </div>
-                    <h1 class='nombre-producto'>$nombreProducto " . $precioProducto . "€</h1>
+                    <h1 class='nombre-producto'>$nombreProducto <span class='precio'>" . $precioProducto . "</span></h1>
                     </a>
                     ";
             }
