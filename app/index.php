@@ -13,7 +13,7 @@ include './components/header.php';
     <link rel="stylesheet" href="style/reset.css">
     <link rel="stylesheet" href="style/general.css">
     <link rel="stylesheet" href="style/index.css">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>Tienda Online</title>
