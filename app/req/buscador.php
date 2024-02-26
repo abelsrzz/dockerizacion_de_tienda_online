@@ -19,6 +19,12 @@ if (mysqli_num_rows($busqueda) > 0) {
     ";
     while ($fila = mysqli_fetch_row($busqueda)) {
         list($idProducto, $nombreProducto, $imagenProducto, $precioProducto, $especificacionesProducto, $marcaProducto) = $fila;
+
+        //Se llama a la función céntimos para corregir la apariencia del precio en el frontend
+        include_once '../functions/centimos.php';
+        $precioProducto = quitar_centimos($precioProducto);
+
+        //Imprimir producto
         echo "
         <a href='/producto/?id=$idProducto' class='card producto-buscado'>
         <div class='img-container'>
