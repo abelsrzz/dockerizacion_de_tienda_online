@@ -3,6 +3,7 @@
 require '../req/session.php';
 require '../req/conection.php';
 
+//Si se recupera la conexión a la base de datos se redirige al índice
 if($c){
     header("Location: /");
     exit(0);
