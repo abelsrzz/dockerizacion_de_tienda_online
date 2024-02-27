@@ -76,6 +76,14 @@ a {
   justify-content: center;
   gap: 40px;
 }
+.productos-index{
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+  gap: 40px;
+}
 .pagina-categoria .productos {
   justify-content: center;
 }

@@ -70,7 +70,7 @@ INSERT INTO `categoria` (`id`, `nombre`) VALUES
 (27, ' portatiles hp'),
 (28, ' portatiles samsung'),
 (29, ' portatiles gigabyte'),
-(30, ' portatiles razer'),
+-- (30, ' portatiles razer'),
 (31, ' procesadores'),
 (32, ' placas base'),
 (33, ' memorias ram'),

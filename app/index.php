@@ -88,7 +88,7 @@ include './components/header.php';
             echo "
                 <section class='seccion '>
                 <h1 class='titulo-seccion'>" . $icon . "$nombreCategoria <a class='boton' href='/categoria/?id=$idCategoria'>Ver $numero_de_productos productos</a></h1>
-                <article class='productos'>
+                <article class='productos-index'>
             ";
 
             //Se seleccionan los productos de la categoría actual
