@@ -34,9 +34,14 @@ session_start();
         $apellido2 = $_POST["apellido2"] ?? "";
         $mail = $_POST["mail"] ?? "";
 
-        //Se comprueba si existe alguna cuenta con el mismo correo
-        $sql = "SELECT mail FROM usuario WHERE mail LIKE '$mail'";
-        $mailRepetido = mysqli_query($c, $sql);
+        //Protección contra XSS
+        $username = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+        $password_form = htmlspecialchars($password_form, ENT_QUOTES, 'UTF-8');
+        $rpassword = htmlspecialchars($rpassword, ENT_QUOTES, 'UTF-8');
+        $nombre = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
+        $apellido1 = htmlspecialchars($apellido1, ENT_QUOTES, 'UTF-8');
+        $apellido2 = htmlspecialchars($apellido2, ENT_QUOTES, 'UTF-8');
+        $mail = htmlspecialchars($mail, ENT_QUOTES, 'UTF-8');
 
         //Se comprueba el formato del correo
         if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mail)) {
@@ -48,7 +53,17 @@ session_start();
         if(!preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[A-Z]).*$/", $password_form)) {
             header("Location: /registrarse/index.php?err=5");
             exit(1);
-        } 
+        }
+
+        //Se comprueba el formato del nombre de usuario
+        if(!preg_match('/^[\w\.-]{4,16}$/', $username)) {
+            header("Location: /registrarse/index.php?err=6");
+            exit(1);
+        }
+
+        //Se comprueba si existe alguna cuenta con el mismo correo
+        $sql = "SELECT mail FROM usuario WHERE mail LIKE '$mail'";
+        $mailRepetido = mysqli_query($c, $sql);
 
         while ($fila = mysqli_fetch_row($mailRepetido)) {
             list($checkMail) = $fila;
@@ -121,6 +136,8 @@ session_start();
                     echo "<p class='error'>El formato del correo electrónico no es correcto.</p>";
                 } elseif ($_GET['err'] == 5) {
                     echo "<p class='error'>La contraseña debe tener mínimo 8 dígitos, una mayúscula y un número.</p>";
+                } elseif ($_GET['err'] == 6) {
+                    echo "<p class='error'>El nombre de usuario debe contener entre 4 y 16 carácteres.</p>";
                 }
             }
             ?>

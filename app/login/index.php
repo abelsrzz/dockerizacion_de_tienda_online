@@ -28,11 +28,21 @@ session_start();
         $usuario_login = $_POST['username'];
         $user_password = $_POST['password'];
 
+        //Protección contra XSS
+        $usuario_login = htmlspecialchars($usuario_login, ENT_QUOTES, 'UTF-8');
+        $user_password = htmlspecialchars($user_password, ENT_QUOTES, 'UTF-8');
+
         //Se comprueba el formato de la contraseña para evitar injecciones de código
         if(!preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[A-Z]).*$/", $user_password)) {
             header("Location: /login/index.php?err=2");
             exit(1);
-        } 
+        }
+
+        //Se comprueba el formato del usuario para evitar injecciones de código
+        if(!preg_match('/^[\w\.-]{4,16}$/', $usuario_login)) {
+            header("Location: /login/index.php?err=1");
+            exit(1);
+        }
 
         //Se selecionan los datos de usuario en la base de datos
         $sql = "SELECT id, username FROM usuario";
@@ -86,7 +96,7 @@ session_start();
             //Mensajes informativos de error
             if (isset($_GET['err'])) {
                 if ($_GET['err'] == 1) {
-                    echo "<p class='error'>El usuario no existe</p>";
+                    echo "<p class='error'>Usuario incorrecto</p>";
                 } elseif ($_GET['err'] == 2) {
                     echo "<p class='error'>Contraseña incorrecta</p>";
                 }

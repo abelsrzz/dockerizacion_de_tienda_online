@@ -6,6 +6,10 @@ require '../req/conection.php';
 $buscar = $_POST['query'] ?? '';
 $buscar = strtolower($buscar);
 
+//Protección contra XSS
+$buscar = htmlspecialchars($buscar, ENT_QUOTES, 'UTF-8');
+
+
 //Se seleccionan las coincidencias en la base de datos
 $sql = "SELECT * FROM producto WHERE LOWER(nombre) LIKE '%$buscar%' OR LOWER(especificaciones) LIKE '%$buscar%' OR LOWER(marca) LIKE '%$buscar%'";
 $busqueda = mysqli_query($c, $sql);
