@@ -78,6 +78,9 @@ include '../components/header.php';
                 ";
             }
             ?>
+        <div class="blob-container">
+            <span class="blob" />
+        </div>
     </main>
 </body>
 
