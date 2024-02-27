@@ -57,7 +57,6 @@ include './components/header.php';
                         echo "
                             <a class='categoria-todas' href='./categoria/?id=$idCategoria'>$nombreCategoria</a>
                         ";
-
                     }
                 ?>
             </article>
@@ -66,7 +65,6 @@ include './components/header.php';
         //Selección de todas las categorías existentes
         $sql = "SELECT * FROM categoria";
         $categorias = mysqli_query($c, $sql);
-
 
         //Se recorren los resultados
         while ($fila = mysqli_fetch_row($categorias)) {
@@ -148,11 +146,11 @@ include './components/header.php';
             }
         }
 
+        //Boton para mostrar todas las categorías
         function show_all() {
             const all_cats = document.getElementById("all-cats");
             all_cats.classList.toggle("shown");
         }
-
     </script>
 </body>
 <?php mysqli_close($c); ?>
