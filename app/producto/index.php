@@ -43,7 +43,7 @@ include '../components/header.php';
             //Se comprueba si el usuario ha iniciado sesión para poder añadir productos al carrito
             if (!isset($_SESSION['usuario'])) {
                 //Si el usuario decide iniciar sesión se registra el producto en el que estaba para que no lo pierda cuando ya tenga la sesión iniciada
-                $boton = "<a class='boton' href='/login?prodID=$idProducto'>Inicia sesión para añadir a la cesta.</a>";
+                $boton = "<a class='boton' href='/login/index.php?prodID=$idProducto'>Inicia sesión para añadir a la cesta.</a>";
             } else {
                 $boton = "<a class='boton' href='/carrito/addToBasket.php?id=$idProducto'>Añadir a la cesta</a>";
             }

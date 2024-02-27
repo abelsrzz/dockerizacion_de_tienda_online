@@ -21,7 +21,6 @@ include './components/header.php';
 
 <body>
 
-
     <main class="principal dotted">
         <div class="bienvenida">
             <?php
