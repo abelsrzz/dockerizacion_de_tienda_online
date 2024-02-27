@@ -41,7 +41,7 @@ include './components/header.php';
         </div>
         <section class="index-menu">
             <h1 class="nav-menu">
-                <button class="boton" onclick="show_all()">Mostrar todas las categorías</button>
+                <button class="boton" id="boton-mostrar-todas" onclick="show_all()">Mostrar todas las categorías</button>
             </h1>
             <article id="all-cats">
                 <?php
@@ -126,7 +126,8 @@ include './components/header.php';
     </main>
     <script type="text/javascript">
         // Función que se activa al introducir texto dentro del buscador
-        function buscar_ahora() {
+        function buscar_ahora() {       
+
             var inputText = $('#buscar').val();
             var result = document.getElementById("resultados")
 
@@ -148,8 +149,19 @@ include './components/header.php';
 
         //Boton para mostrar todas las categorías
         function show_all() {
+            const showButton = document.getElementById("boton-mostrar-todas")
+            const showText = "Mostrar todas las categorías"
+            const hideText = "Ocultar todas las categorías"
+
             const all_cats = document.getElementById("all-cats");
+
             all_cats.classList.toggle("shown");
+
+            if(showButton.innerHTML === showText){
+                showButton.innerHTML = hideText
+            } else {
+                showButton.innerHTML = showText
+            }
         }
     </script>
 </body>
