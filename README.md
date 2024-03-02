@@ -2,105 +2,124 @@
 
 ###### Todos los productos de esta tienda provienen de <a href='https://neobyte.es'>neobyte.es</a>
 
-### Dockerización
-
-```yaml
-version: '3.8'
-
-services:
-  nginx:
-    build:
-      context: ./nginx
-    container_name: nginx
-    restart: unless-stopped
-    volumes:
-      - ./app/:/var/www/
-    depends_on:
-      - php-fpm
-      - database
-    ports:
-      - 8080:80
-    networks:
-      - php-stack
-
-  php-fpm:
-    build:
-      context: ./php-fpm
-    container_name: php-fpm
-    restart: unless-stopped
-    volumes:
-      - ./app/:/var/www/
-    depends_on:
-      - database
-    networks:
-      - php-stack
-
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: phpmyadmin
-    restart: unless-stopped
-    environment:
-      - PMA_ARBITRARY=1
-      - TZ=Spain/Madrid
-    ports:
-      - 8081:80
-    depends_on:
-      - database
-    networks:
-      - php-stack
-
-  database:
-    build:
-      context: ./mysql
-    container_name: database
-    restart: unless-stopped
-    command:
-      - '--local-infile=1'
-      - '--secure-file-priv=/data'
-    environment:
-      - MYSQL_DATABASE=tienda
-      - MYSQL_USER=myadmin
-      - MYSQL_PASSWORD=abc123.
-      - MYSQL_ROOT_PASSWORD=abc123.
-    networks:
-      - php-stack
-
-networks:
-  php-stack:
-    name: php-stack 
-```
-
-#### Dockerfile php
-
-```docker
-FROM php:8.2-fpm
-RUN rm -rf /var/www/html
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-install mysqli
-```
-
-#### Dockerfile nginx
-
-```dockerfile
-FROM nginx:latest
-RUN rm -rf /var/www/html
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD conf.d/default.conf /etc/nginx/conf.d/default.conf
-```
-
-#### Dockerfile mysql
-
-```dockerfile
-FROM mysql:latest
-ADD databases/ /docker-entrypoint-initdb.d/
-ADD scrapped_data/ /data 
-```
-
-### Funcionamiento 
-
 ![image-20240226113744930](.markdown_images/`README`/image-20240226113744930.png)
 
+## Los datos mostrados en la página web
+
+Todos los productos de la página web han sido recopilado de la página oficial de <a href='https://neobyte.es'>neobyte.es</a> mediante un script en python.
+
+El script recorre la página principal en búsqueda de las diferentes secciones, una vez localizada una sección hace un barrido completo de todos los productos que aparecen en el landing page de la sección.
+
+`app/mysql/scrapped_data/scrapper.py`
+
+```python
+from requests_html import HTMLSession
+import re
+
+session = HTMLSession()
+url = "https://www.neobyte.es/"
+r = session.get(url)
+full_page_scrap = r.html.xpath("//div/ul/li/a/@href")
+
+prohibited_links=["content", "empresas", "quiero-mi-promo", "contactanos"]
+categorys = []
+
+def clear_files():
+    product_data_file = open("./product_data.csv", "w")
+    category_data_file = open("./category_data.csv", "w")
+    product_category_data_file = open("./product_category_data.csv", "w")
+    
+    product_data_file.write("")
+    category_data_file.write("0;' OFERTAS'")
+    product_category_data_file.write("")
+    
+
+
+print("Buscando categorias")
+for category_link in full_page_scrap:
+    prohibited_detect=0
+    if "www.neobyte.es" in category_link:
+        for prohibited in prohibited_links:
+            if prohibited in category_link:
+                prohibited_detect = 1
+                break
+        if prohibited_detect == 0:    
+            categorys.append(category_link)
+
+category_id=0
+product_id=0
+clear_files()
+for category_url in categorys:
+    match = re.search(r'[^\/]+$', str(category_url))
+    match = match.group(0)
+    match = match.split("-")
+    match = match[:-1]
+    category_name=""
+    for palabra in match:
+        category_name = category_name +" "+ palabra
+    print(category_name)
+
+    category_id+=1
+
+    url = category_url
+    r = session.get(url)
+
+    print("Buscando productos de categoria " + category_name)
+    scrap = r.html.xpath("//article/div/a/@href")
+    
+    
+    
+    category_data_file = open("./category_data.csv", "a")
+    category_data = str(category_id)+";'"+str(category_name)+"'\n"
+    category_data_file.write(category_data)
+    
+    for product_url in scrap:
+        url = product_url
+        r = session.get(url)
+
+        image = r.html.xpath("//div/div/div/img[@itemprop='image'][1]/@content")
+        if type(image) is list:
+            product_image = image[0]
+        else:
+            product_image = image
+        
+        nombre_elementos = r.html.xpath("//h1[@itemprop='name']/span")
+        for nombre in nombre_elementos:
+            product_name = nombre.text
+        
+        descripciones_elementos = r.html.xpath("//div[@itemprop='description']/p")
+        for descripcion in descripciones_elementos:
+            product_description = descripcion.text
+        
+        precios_elementos = r.html.xpath("//span[@itemprop='price']/@content")
+        for precio in precios_elementos:
+            product_price = precio
+            
+        marcas_elementos = r.html.xpath("//div[@itemprop='brand']/meta/@content")
+        for marca in marcas_elementos:
+            product_brand = marca
+    
+        print("Producto: " + str(nombre.text))
+        product_data_file = open("./product_data.csv", "a")
+        product_category_data_file = open("./product_category_data.csv", "a")
+
+        product_data = str(product_id)+";"+"'"+str(product_name)+"'"+";"+"'"+str(product_image)+"'"+";"+str(product_price)+";"+"'"+str(product_description)+"'"+";"+"'"+str(product_brand)+"'\n"
+        product_data = product_data.replace('"', '')
+        product_data_file.write(product_data)
+        
+        product_category_data = str(category_id)+";"+str(product_id)+"\n"
+        product_category_data_file.write(product_category_data)
+        
+        product_id+=1
+```
+
+Una vez recopilados los datos de la web estos se guardan en 3 archivos csv para posteriormente importarlos en la base de datos.
+
+## Funcionalidades principales de la página
+
 ### Función para guardar el id del producto donde se encuentra el usuario cuando inicia sesión.
+
+Si un usuario decide iniciar sesión mientras este se encuentra en una página de producto se guardará el ID del producto en una variable con el método GET.
 
 ![image-20240226113841604](.markdown_images/`README`/image-20240226113841604.png)
 
@@ -110,6 +129,8 @@ ADD scrapped_data/ /data
 //Si el usuario decide iniciar sesión se registra el producto en el que estaba para que no lo pierda cuando ya tenga la sesión iniciada
 $boton = "<a class='boton' href='/login?prodID=$idProducto'>Inicia sesión para añadir a la cesta.</a>";
 ```
+
+Posteriormente se recopila en la página de login/registro y una vez iniciada la sesión se devuelve a la página del producto.
 
 `login/index.php`
 
@@ -126,6 +147,8 @@ exit(0);
 ### Función para establecer los céntimos de forma correcta en el frontend
 
 ![image-20240226114241523](.markdown_images/`README`/image-20240226114241523.png)
+
+He creado una función para que el precio de los productos no se muestre como `999.0€` y se muestre como `999.00€`
 
 `functions/centimos.php`
 
@@ -149,7 +172,101 @@ function quitar_centimos($cifra)
 
 ![image-20240226115729893](.markdown_images/`README`/image-20240226115729893.png)
 
+La cesta permite eliminar productos de una forma sencilla, con un solo click.
+
+### Buscador en tiempo real con JQuery
+
+He implementado un buscador en tiempo real utilizando JQuery y back-end php.
+
+El código JQuery recopila el texto introducido en el buscador y lo remite al back-end en cada pulsación de tecla.
+
+```html
+<input type="text" ... placeholder="Buscar..." maxlength="30" autocomplete="off" onkeyup="buscar_ahora();" />
+```
+
+#### JQuery:
+
+```javascript
+ // Función que se activa al introducir texto dentro del buscador
+        function buscar_ahora() {       
+
+            var inputText = $('#buscar').val();
+            var result = document.getElementById("resultados")
+
+            $.ajax({
+                type: 'POST',
+                url: '/req/buscador.php',
+                data: { query: inputText },
+                success: function (response) {
+                    $('#resultados').html(response);
+                }
+            });
+
+            if (!inputText) {
+                result.style.display = "none"
+            } else {
+                result.style.display = "flex"
+            }
+        }
+```
+
+#### Back-end del buscador en php:
+
+```php
+<?php
+//Se llama al a base de datos
+require '../req/conection.php';
+
+//Se recibe la búsqueda por post
+$buscar = $_POST['query'] ?? '';
+$buscar = strtolower($buscar);
+
+//Protección contra XSS
+$buscar = htmlspecialchars($buscar, ENT_QUOTES, 'UTF-8');
+
+
+//Se seleccionan las coincidencias en la base de datos
+$sql = "SELECT * FROM producto WHERE LOWER(nombre) LIKE '%$buscar%' OR LOWER(especificaciones) LIKE '%$buscar%' OR LOWER(marca) LIKE '%$buscar%'";
+$busqueda = mysqli_query($c, $sql);
+
+if (mysqli_num_rows($busqueda) > 0) {
+
+    //Se devuelven los resultados
+    echo "
+    <section class='productos-wrapper small-text'>
+    <section class='productos'>
+    ";
+    while ($fila = mysqli_fetch_row($busqueda)) {
+        list($idProducto, $nombreProducto, $imagenProducto, $precioProducto, $especificacionesProducto, $marcaProducto) = $fila;
+
+        //Se llama a la función céntimos para corregir la apariencia del precio en el frontend
+        include_once '../functions/centimos.php';
+        $precioProducto = quitar_centimos($precioProducto);
+
+        //Imprimir producto
+        echo "
+        <a href='/producto/?id=$idProducto' class='card producto-buscado'>
+        <div class='img-container'>
+            <img src='$imagenProducto'>
+        </div>
+        <h1 class='nombre-producto nombre-producto-buscado'>$nombreProducto <span class='precio'>" . $precioProducto . "</span></h1>
+        </a>
+        ";
+    }
+    echo "
+    </section>
+    </section>
+    ";
+
+} else {
+    //Si no hay resultados se da un mensaje informativo
+    echo "<p class='contenido-resultado'>No hay coincidencias</p>";
+}
+```
+
 ### Base de datos
+
+La base de datos almacena categorías, productos, la relación entre una categoría y un producto para que así los productos puedan tener varias categorías, usuarios y el contenido de la cesta de un usuario.
 
 ```sql
 CREATE TABLE categoria(
