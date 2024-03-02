@@ -1,12 +1,12 @@
 # Tienda Online Dockerizada
 
-###### Todos los productos de esta tienda provienen de <a href='https://neobyte.es'>neobyte.es</a>
+###### Todos los productos de esta tienda provienen de <a target="_blank" href='https://neobyte.es'>neobyte.es</a>
 
 ![image-20240226113744930](.markdown_images/`README`/image-20240226113744930.png)
 
 ## Los datos mostrados en la página web
 
-Todos los productos de la página web han sido recopilado de la página oficial de <a href='https://neobyte.es'>neobyte.es</a> mediante un script en python.
+Todos los productos de la página web han sido recopilado de la página oficial de <a target="_blank" href='https://neobyte.es'>neobyte.es</a> mediante un script en python.
 
 El script recorre la página principal en búsqueda de las diferentes secciones, una vez localizada una sección hace un barrido completo de todos los productos que aparecen en el landing page de la sección.
 
